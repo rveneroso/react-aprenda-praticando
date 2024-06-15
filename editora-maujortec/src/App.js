@@ -1,24 +1,23 @@
 import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header className="topo">
+        <h1 className="logo"></h1>
+        <ul>
+          <li href="">Navegação</li>
+        </ul>
       </header>
-    </div>
+      <main className="principal">
+        <h2>Últimos lançamentos</h2>
+        <div className="card">Card</div>
+      </main>
+      <footer className="rodape">
+        <p>Conteúdos cedidos pela Editora Novatech &#8212; Copyright 2020</p>
+      </footer>
+    </>
   );
 }
 
