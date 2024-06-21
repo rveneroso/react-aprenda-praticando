@@ -1,12 +1,11 @@
 import React from "react";
-const Logo = () => {
-    return (
-        <a href="#">
-            <h1 className="logo">
-                <span>Editora MaujourTec</span>
-            </h1>
-        </a>
-    );
-}
+import { Link } from "react-router-dom";
+const Logo = () => (
+    <Link to="/">
+        <h1 className="logo">
+            <span>Editora MaujourTec</span>
+        </h1>
+    </Link>
+);
 
 export default Logo;
