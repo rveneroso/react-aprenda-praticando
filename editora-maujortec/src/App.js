@@ -40,6 +40,7 @@ class App extends Component {
     livros: []
   };
 
+  
   async componentDidMount() {
     try {
       const { data: livros } = await axios.get("api/todosOsLivros.json");
@@ -54,6 +55,29 @@ class App extends Component {
         );
     }
   }
+  
+  /*
+  componentDidMount() {
+    fetch("/api/todosOsLivros.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(livros => this.setState({ livros }))
+      .catch(error => {
+        console.error('Error fetching the JSON file:', error);
+        document
+          .querySelectorAll("main")[0]
+          .insertAdjacentHTML('beforeend', '<p class="alerta">Mensagem de erro</p>');
+      })
+      .finally(() => {
+        console.log("Sempre retorna");
+      });
+  }
+  */
+
   render() {
     console.log('App state livros:', this.state.livros);
     return (
