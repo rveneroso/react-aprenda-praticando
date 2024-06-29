@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 /* 
-  No livro o autor utilizou o componente Swtich para mapear os caminhos (links)
+  No livro o autor utilizou o componente Switch para mapear os caminhos (links)
   Porém, parece que esse componente não existe mais na versão do react-router-dom que estou
   usando. Pesquisando na internet, vi que o componente Switch foi substituído pelo Routes.
 
@@ -40,7 +40,7 @@ class App extends Component {
     livros: []
   };
 
-  
+
   async componentDidMount() {
     try {
       const { data: livros } = await axios.get("api/todosOsLivros.json");
