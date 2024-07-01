@@ -1,7 +1,9 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from "react-router-dom";
 import Menu from "./components/Menu";
 import TabelaLivros from "./components/TabelaLivros";
-import logo from './logo.svg';
+import CadastrarLivros from "./components/CadastrarLivros";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   state = {
@@ -26,14 +28,63 @@ class App extends Component {
       }
     ]
   };
+
+  inserirLivro = livro => {
+    livro.id = this.state.livros.length + 1;
+    this.setState({
+      livros: [...this.state.livros, livro]
+    });
+  };
+
+  editarLivro = (livro) => {
+    console.log(livro);
+    const index = this.state.livros.findIndex((p) => p.id === livro.id);
+    const livros = this.state.livros
+      .slice(0, index)
+      .concat(this.state.livros.slice(index + 1));
+    const newLivros = [...livros, livro].sort((a, b) => a.id - b.id);
+    this.setState({
+      livros: newLivros,
+    });
+  };
+
   render() {
     return (
-      <div className="App">
+      <Router>
         <Menu />
-        <TabelaLivros livros={this.state.livros}/>
-      </div>
+        <Routes>
+          <Route path="/" element={<TabelaLivros livros={this.state.livros} />} />
+          <Route path="/cadastrar" element={
+            <CadastrarLivros 
+              inserirLivro = { this.inserirLivro }
+              livro = {{ id: 0, isbn: "", titulo: "", autor: "" }}/>
+          }>
+          </Route>
+          <Route path="*" element={<NotFound />} />
+          <Route 
+            path="/editar/:isbnlivro"
+            element={<EditarLivroWrapper livros={this.state.livros} editarLivro={this.editarLivro} />}
+          />
+        </Routes>
+      </Router>
     );
   }
+};
+
+const EditarLivroWrapper = ({ livros, editarLivro }) => {
+  const { isbnlivro } = useParams();
+  const livro = livros.find(livro => livro.isbn === isbnlivro);
+
+  console.log('Found livro:', livro); 
+
+  return livro ? (
+    <CadastrarLivros 
+      editarLivro={editarLivro} 
+      livro={livro} 
+    />
+  ) : (
+    <Navigate to="/" />
+  );
 };
 
 export default App;
