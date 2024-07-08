@@ -36,6 +36,13 @@ class App extends Component {
     });
   };
 
+  removerLivro = livro => {
+    if (window.confirm("Remover esse livro?")) {
+      const livros = this.state.livros.filter(p => p.isbn !== livro.isbn);
+      this.setState({ livros });
+    }
+  }
+
   editarLivro = (livro) => {
     console.log(livro);
     const index = this.state.livros.findIndex((p) => p.id === livro.id);
@@ -53,7 +60,11 @@ class App extends Component {
       <Router>
         <Menu />
         <Routes>
-          <Route path="/" element={<TabelaLivros livros={this.state.livros} />} />
+          <Route path="/" element={
+            <TabelaLivros 
+              livros={this.state.livros}
+              removerLivro={this.removerLivro}
+            />} />
           <Route path="/cadastrar" element={
             <CadastrarLivros 
               inserirLivro = { this.inserirLivro }
